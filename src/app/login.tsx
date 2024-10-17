@@ -34,13 +34,13 @@ export default function Login() {
               size="Small"
               title="Cadastre-se"
               sizeTitle="Small"
-              action={() => console.log("Cadastre")}/>
+              action={() => navigation.navigate("registerUser")}/>
               <View className="space-x-4"/>
             <Button 
               size="Small"
               title="Recuperar Senha"
               sizeTitle="Small"
-              action={() => console.log("Recup")}/>
+              action={() => ""}/>
           </View>
         </View>
       </View>

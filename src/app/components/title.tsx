@@ -16,7 +16,8 @@ export default function Title({ title, size }: Props) {
   
   const textSize = {
     Small: 'text-base', 
-    Medium: 'text-2xl', 
+    Medium: 'text-2xl',
+    SubLarge: 'text-4xl', 
     Large: 'text-5xl',  
   };
 
