@@ -17,13 +17,14 @@ export default function Login() {
           <InputData
             title="Email"
             size="Small"
-            placeholder="seuemail@dominio.com"/>
+            placeholder="seuemail@dominio.com"
+            type="input"/>
           <InputData
             title="Senha"
             size="Small"
             placeholder="**********"
             showIcon={true}
-            visible={false}/>
+            type="password"/>
           <Button
             size="Large"
             title="Login"

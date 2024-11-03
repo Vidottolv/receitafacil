@@ -6,8 +6,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './Home';
 import RegisterUser from './registerUser';
 import Login from './login';
-import { Ionicons } from '@expo/vector-icons';
+import { Entypo, Feather, Ionicons } from '@expo/vector-icons';
 import Home from './Home';
+import Agenda from './agenda';
+import Receita from './receita';
+import Ingrediente from './ingrediente';
+import { Image, TouchableOpacity } from 'react-native';
+import { ToastProvider } from 'react-native-toast-notifications'
+
 
 
 type RootStackParamList = {
@@ -20,49 +26,94 @@ type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
-// function HomeTabs() {
-//   return (
-//     <Tab.Navigator
-//       screenOptions={({ route }) => ({
-//         tabBarIcon: ({ focused, color, size }) => {
-//           let iconName;
+let user = 'Lucas';
 
-//           if (route.name === 'Home') {
-//             iconName = focused ? 'home' : 'home-outline';
-//           } else if (route.name === 'Settings') {
-//             iconName = focused ? 'settings' : 'settings-outline';
-//           }
-
-//           return <Ionicons name={iconName} size={size} color={color} />;
-//         },
-//         tabBarActiveTintColor: '#FBFAF7', 
-//         tabBarInactiveTintColor: '#FBFAF7', 
-//         tabBarStyle: {
-//           backgroundColor: '#1E2022', 
-//           borderTopWidth: 0,
-//         },
-//         tabBarLabelStyle: {
-//           fontSize: 12, 
-//           fontFamily: 'Itim',
-//         },
-//         tabBarIconStyle: {
-//           marginTop: 5,
-//         },
-
-//       })}>
-//       <Tab.Screen 
-//         name="Home" 
-//         component={HomeScreen}
-//         options={{ headerShown: false }} />
-//       {/* <Tab.Screen name="Profile" component={ProfileScreen} />
-//       <Tab.Screen name="Settings" component={SettingsScreen} /> */}
-//     </Tab.Navigator>
-//   );
-// }
+function HomeTabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({
+        tabBarActiveTintColor: '#FBFAF7', 
+        tabBarInactiveTintColor: '#FBFAF7', 
+        tabBarStyle: {
+          backgroundColor: '#1E2022', 
+          borderTopWidth: 0.2,
+          shadowColor: '#FBFAF7',      
+          shadowOpacity: 1,       
+          shadowOffset: { 
+            width: 2, 
+            height: 4 
+          }, 
+          shadowRadius: 5,          
+          elevation: 3,             
+        },
+        tabBarLabelStyle: {
+          fontSize: 12, 
+          fontFamily: 'Itim',
+        },
+        tabBarIconStyle: {
+          marginTop: 5,
+        },
+        headerStyle: {
+          backgroundColor: '#1E2022'
+        },
+        headerTintColor: '#FBFAF7',
+        headerTitleStyle: {
+          fontFamily:'Itim',
+          fontSize:32
+        }
+      })}>
+      <Tab.Screen 
+        name="Home" 
+        component={HomeScreen}
+        options={{ 
+          headerTitle:`Olá, ${user}!`,
+          headerRight: () => (
+            <TouchableOpacity onPress={() => console.log('clicado')}>
+            <Image
+                className='h-14 w-14 mr-10 -mt-4 rounded-full'
+                source={
+                    require('../../assets/images/DefaultUser.png')
+                }/>
+        </TouchableOpacity>
+          ),
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name='home-outline' color={color} size={size}/>
+          )
+        }}/>
+      <Tab.Screen 
+        name="ingrediente" 
+        component={Ingrediente}
+        options={{ 
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Feather name='book-open' color={color} size={size}/>
+          )
+        }}/>
+      <Tab.Screen 
+        name="receita" 
+        component={Receita}
+        options={{ 
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Entypo name='add-to-list' color={color} size={size}/>
+          )
+        }}/>
+      <Tab.Screen 
+        name="agenda" 
+        component={Agenda}
+        options={{ 
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name='calendar-number-outline' color={color} size={size}/>
+          )
+        }}/>
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
   return (
-    // <NavigationContainer>
+    <ToastProvider>
       <Stack.Navigator initialRouteName="login">
         <Stack.Screen 
           name="login" 
@@ -81,10 +132,10 @@ export default function App() {
         /> */}
         <Stack.Screen 
           name="Home" 
-          component={Home} 
+          component={HomeTabs} 
           options={{ headerShown: false }} 
         />
       </Stack.Navigator>
-    // </NavigationContainer>
+    </ToastProvider>
   );
 }
