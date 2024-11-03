@@ -13,8 +13,7 @@ import Receita from './receita';
 import Ingrediente from './ingrediente';
 import { Image, TouchableOpacity } from 'react-native';
 import { ToastProvider } from 'react-native-toast-notifications'
-
-
+import { useUserStore } from './store/userStore';
 
 type RootStackParamList = {
   login: undefined;
@@ -22,13 +21,11 @@ type RootStackParamList = {
   registerUser: undefined;
   Recover: undefined;
 };
-
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
-let user = 'Lucas';
-
 function HomeTabs() {
+  const user = useUserStore((state) => state.user);
   return (
     <Tab.Navigator
       screenOptions={({
