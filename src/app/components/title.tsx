@@ -6,7 +6,7 @@ import * as Font from 'expo-font';
 
 interface Props {
   title: string;
-  size: 'Small' | 'Medium' | 'Large';
+  size: 'Small' | 'Medium' | 'Large' | 'SubLarge';
 }
 
 

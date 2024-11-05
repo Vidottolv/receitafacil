@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native';
-import DatePicker from './components/datepicker';
+import DataSelector from './components/dataselector';
 
 export default function Agenda() {
   const meses = [
@@ -18,7 +18,7 @@ export default function Agenda() {
   ];
   return (
     <View className='bg-[#1E2022] w-full h-full justify-center'>
-     <DatePicker border='solid' itemsData={meses} />  
+     <DataSelector border='solid' itemsData={meses} />  
     </View>
   );
 }
