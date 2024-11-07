@@ -14,6 +14,7 @@ import Ingrediente from './ingrediente';
 import { Image, TouchableOpacity } from 'react-native';
 import { ToastProvider } from 'react-native-toast-notifications'
 import { useUserStore } from './store/userStore';
+import AdicionarProduto from './addProduto';
 
 type RootStackParamList = {
   login: undefined;
@@ -81,7 +82,7 @@ function HomeTabs() {
         name="ingrediente" 
         component={Ingrediente}
         options={{ 
-          headerShown: false,
+          headerTitle:'Produtos',
           tabBarIcon: ({ color, size }) => (
             <Feather name='book-open' color={color} size={size}/>
           )
@@ -111,7 +112,38 @@ function HomeTabs() {
 export default function App() {
   return (
     <ToastProvider>
-      <Stack.Navigator initialRouteName="login">
+      <Stack.Navigator initialRouteName="login"
+            screenOptions={({
+              tabBarActiveTintColor: '#FBFAF7', 
+              tabBarInactiveTintColor: '#FBFAF7', 
+              tabBarStyle: {
+                backgroundColor: '#1E2022', 
+                borderTopWidth: 0.2,
+                shadowColor: '#FBFAF7',      
+                shadowOpacity: 1,       
+                shadowOffset: { 
+                  width: 2, 
+                  height: 4 
+                }, 
+                shadowRadius: 5,          
+                elevation: 3,             
+              },
+              tabBarLabelStyle: {
+                fontSize: 12, 
+                fontFamily: 'Itim',
+              },
+              tabBarIconStyle: {
+                marginTop: 5,
+              },
+              headerStyle: {
+                backgroundColor: '#1E2022'
+              },
+              headerTintColor: '#FBFAF7',
+              headerTitleStyle: {
+                fontFamily:'Itim',
+                fontSize:32
+              }
+            })}>
         <Stack.Screen 
           name="login" 
           component={Login} 
@@ -131,6 +163,13 @@ export default function App() {
           name="Home" 
           component={HomeTabs} 
           options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="addProduto"
+          component={AdicionarProduto}
+          options={{
+              headerTitle:'Produtos',
+          }}
         />
       </Stack.Navigator>
     </ToastProvider>

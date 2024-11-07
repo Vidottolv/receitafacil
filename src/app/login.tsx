@@ -68,18 +68,21 @@ export default function Login() {
             size="Large"
             title="Login"
             sizeTitle="Medium"
+            margin="yes"
             action={() => handleValidateLogin()}/>
           <View className="flex-row gap-10">
             <Button 
               size="Small"
               title="Cadastre-se"
               sizeTitle="Small"
+              margin="yes"
               action={() => navigation.navigate("registerUser")}/>
               <View className="space-x-4"/>
             <Button 
               size="Small"
               title="Recuperar Senha"
               sizeTitle="Small"
+              margin="yes"
               action={() => ""}/>
           </View>
         </View>

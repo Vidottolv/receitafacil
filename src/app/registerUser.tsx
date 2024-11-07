@@ -103,6 +103,7 @@ export default function RegisterUser() {
               size="Large"
               title="Criar"
               sizeTitle="Medium"
+              margin='yes'
               action={() => handleRegister()}/>
           </View>
         </ScrollView>
