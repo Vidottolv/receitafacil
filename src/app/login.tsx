@@ -25,7 +25,7 @@ export default function Login() {
         const response = await api.post('/auth', userDTO);
         console.log(response.data.user.name)
         setUser(response.data.user.name)
-        toast.show(`Sucesso! ${user}`, {
+        toast.show(`Sucesso!`, {
           placement:'top',
           duration:1999,
           type:'success'
