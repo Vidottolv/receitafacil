@@ -2,7 +2,7 @@ import { Alert, ScrollView, Text, View } from 'react-native';
 import Title from './components/title';
 import InputData from './components/inputData';
 import Button from './components/button';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import api from './store/apiConfig';
 import { useNavigation } from 'expo-router';
 import { useToast } from 'react-native-toast-notifications';
@@ -16,15 +16,7 @@ export default function RegisterUser() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigation = useNavigation();
   const toast = useToast();
-  const { user, setUser } = useUserStore();
-
-  useEffect(() => {
-    async function loadUser() {
-      setUser(name);
-    }
-  
-    loadUser();
-  }, []);
+  const { setUser } = useUserStore();
 
   const handleRegister = async () => {
     const userDTO = {
@@ -33,8 +25,8 @@ export default function RegisterUser() {
       phone: phone,
       password: password,
       confirmPassword: confirmPassword
-    }
-    // console.log(userDTO);
+    };
+    
     try {
       const response = await api.post('/user', userDTO);
       toast.show(`Sucesso, ${name}! ${response.data.message}`, {
@@ -42,17 +34,19 @@ export default function RegisterUser() {
         duration:1999,
         type:'success'
       });
+      
+      setUser(name); // Atualiza o usuário somente após o cadastro bem-sucedido
+
       setTimeout(() => {
-        navigation.navigate("Home")        
+        navigation.navigate("Home");
       }, 2000);
-    } 
-    catch (error: any) {
+    } catch (error: any) {
       const errorMessage = error.response?.data?.message || 'Erro desconhecido';
       toast.show(`${errorMessage}`, {
         placement:'top',
         duration:2000,
         type:'warning'
-      })
+      });
     }
   };
 

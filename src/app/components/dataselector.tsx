@@ -23,10 +23,12 @@ export default function DataSelector({border, itemsData}:Props) {
                         paddingHorizontal: 8,  
                         height: 50,            
                         justifyContent: 'center',
+                        fontFamily: 'Itim'
                     },
                     placeholder: {
                         // color: '#FBFAF7',
-                        fontSize: 16,        
+                        fontSize: 16,    
+                        fontFamily: 'Itim'     
                     },
                 }}
                 placeholder={{

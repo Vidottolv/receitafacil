@@ -1,7 +1,7 @@
 import { View, TextInput } from 'react-native';
 import Title from './title';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 interface Props {
   title: string;
@@ -13,7 +13,11 @@ interface Props {
 }
 
 export default function InputData({ title, size, placeholder, showIcon = false, type, onChange }: Props) {
-  const [textVisible, setTextVisible] = useState(type === 'input');
+  const [textVisible, setTextVisible] = useState(false);
+
+  useLayoutEffect(() => {
+    setTextVisible(type === 'input');
+  }, [type]);
 
   const toggleIcon = () => {
     setTextVisible((prev) => !prev);
@@ -30,7 +34,7 @@ export default function InputData({ title, size, placeholder, showIcon = false, 
           placeholder={placeholder}
           placeholderTextColor={'#FBFAF7'}
           style={{ fontFamily: 'Itim', color: '#FBFAF7' }}
-          secureTextEntry={!textVisible}
+          secureTextEntry={type ==='password' && !textVisible}
           onChangeText={onChange}
         />
         {showIcon && (
