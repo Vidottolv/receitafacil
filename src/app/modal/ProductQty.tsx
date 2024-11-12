@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Title from '../components/title';
 import InputData from '../components/inputData';
 import Button from '../components/button';
@@ -20,8 +20,8 @@ export default function ProductQuantityModal({ isVisible, onClose }: Props) {
   if (!isVisible) return null;
 
   return (
-    <View style={styles.background}>
-        <View className='h-2/3 w-[90%] border-[#FBFAF7] border-2 rounded-2xl bg-[#1E2022]'>
+    <KeyboardAvoidingView behavior={undefined} style={styles.background}>
+        <View className='h-2/3 w-[90%] border-[#FBFAF7] border-2 rounded-2xl bg-[#1E2022] overflow'>
             <View className='justify-center items-end h-[10%]'>
                 <TouchableOpacity  
                     onPress={() => handleClose()}>
@@ -32,14 +32,14 @@ export default function ProductQuantityModal({ isVisible, onClose }: Props) {
                         color='#FBFAF7'/>
                 </TouchableOpacity>
             </View>
-            <View className='items-center h-[50%]'>
+            <View className='items-center h-[50%] border'>
                 <View 
-                    className='w-3/4 items-center'>
+                    className='w-3/4 items-center border'>
                     <Title
                         size='SubLarge'
                         title='Qual a quantidade de produtos a inserir?'/>
                 </View>
-                <View className='w-2/3 items-center'>
+                <View className='w-2/3 items-center border'>
                     <InputData
                         placeholder='1'
                         size='Small'
@@ -48,16 +48,16 @@ export default function ProductQuantityModal({ isVisible, onClose }: Props) {
                         />
                 </View>
             </View>
-            <View className='items-center'>
+            <View className='items-center border'>
                 <Button
-                    margin='yes'
+                    margin='no'
                     size='Medium'
                     sizeTitle='Medium'
                     title='Inserir'
                     action={() => console.log('opa')}/>
             </View>
         </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

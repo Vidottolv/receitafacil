@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import InputData from './components/inputData';
 import CheckBox from 'react-native-check-box'
 import { useState } from 'react';
@@ -47,7 +47,8 @@ export default function AdicionarProduto() {
         </View>
       </View>
      {checkProduto && (
-        <View className='w-[90%] justify-center items-center'>
+        <View className='w-[90%] justify-center items-center h-full'>
+        <ScrollView className='h-full '>
           <InputData
             title="Nome do Produto"
             size="Small"
@@ -68,13 +69,17 @@ export default function AdicionarProduto() {
             size="Small"
             placeholder="preço"
             type='input'/>
-          <Button
-            margin='yes'
-            size='Large'
-            sizeTitle='Medium'
-            title='Adicionar'
-            action={() => console.log('alo')}/>
-        </View>
+          <View className='items-center'>
+            <Button
+              margin='yes'
+              size='Large'
+              sizeTitle='Medium'
+              title='Adicionar'
+              action={() => console.log('alo')}/>
+          </View>
+          <View className='h-16 w-full'/>
+        </ScrollView>
+      </View>
      )}
       {isModalVisible && (
         <ProductQuantityModal
@@ -82,6 +87,6 @@ export default function AdicionarProduto() {
           onClose={() => setIsModalVisible(false)}
         />
       )}
-   </View>
+    </View>
   );
 }

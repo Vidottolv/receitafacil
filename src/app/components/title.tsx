@@ -1,7 +1,5 @@
 import { View,Text } from 'react-native';
 import { useFontStore } from '../store/fontStore';
-import { useLayoutEffect } from "react";
-import * as Font from 'expo-font';
 
 
 interface Props {
@@ -10,31 +8,13 @@ interface Props {
 }
 
 
-export default function Title({ title, size }: Props) {
-
-  const { fontsLoaded, setFontsLoaded } = useFontStore();
-  
+export default function Title({ title, size }: Props) {  
   const textSize = {
     Small: 'text-base', 
     Medium: 'text-2xl',
     SubLarge: 'text-4xl', 
     Large: 'text-5xl',  
   };
-
-  useLayoutEffect(() => {
-    async function loadFonts() {
-      await Font.loadAsync({
-        'Itim': require('../../../assets/fonts/Itim-Regular.ttf')
-      });
-      setFontsLoaded(true);
-    }
-  
-    loadFonts();
-  }, []);
-  
-  if (!fontsLoaded) {
-    return null;
-  }
 
  return (
     <View>

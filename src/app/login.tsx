@@ -3,9 +3,11 @@ import Title from "./components/title";
 import InputData from "./components/inputData";
 import Button from "./components/button";
 import { useNavigation } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import api from "./store/apiConfig";
 import { useToast } from "react-native-toast-notifications";
+import * as Font from 'expo-font';
+import { useFontStore } from './store/fontStore';
 import { useUserStore } from "./store/userStore";
 
 export default function Login() {
@@ -14,6 +16,22 @@ export default function Login() {
   const navigation = useNavigation();
   const toast = useToast();
   const { user, setUser } = useUserStore();
+  const { fontsLoaded, setFontsLoaded } = useFontStore();
+
+  useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        'Itim': require('../../assets/fonts/Itim-Regular.ttf')
+      });
+      setFontsLoaded(true);
+    }
+    loadFonts();
+  }, []);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
 
   const handleValidateLogin = async () => {
       const userDTO = {
