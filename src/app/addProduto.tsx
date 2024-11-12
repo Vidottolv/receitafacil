@@ -1,14 +1,22 @@
 import { ScrollView, Text, View } from 'react-native';
 import InputData from './components/inputData';
 import CheckBox from 'react-native-check-box'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from './components/button';
 import ProductQuantityModal from './modal/ProductQty';
+import { useQtyStore } from './store/qtyStore';
+
+interface Component {
+  id: number;
+  name: string;
+}
 
 export default function AdicionarProduto() {
   const [checkProduto, setCheckProduto] = useState(false);
   const [checkGrupo, setCheckGrupo] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [components, setComponents] = useState<Component[]>([]);
+  const { QtyProd } = useQtyStore();
 
   const handleCheckGrupo = () => {
       setCheckProduto(false);
@@ -21,6 +29,19 @@ export default function AdicionarProduto() {
       setCheckGrupo(false);
       setIsModalVisible(false);
     }
+
+  const handleSetComponents = () => {
+    const newComponents = Array.from({ length: QtyProd }, (_, index) => ({
+      id: index,
+      name: `Produto - ${index + 1}`,
+    }));
+    setComponents(newComponents);
+    console.log(newComponents)
+  };
+
+  useEffect(() => {
+    handleSetComponents()
+  },[QtyProd])
   
  return (
     <View className={`bg-[#1e2022] w-full h-full items-center flex-1`}>
@@ -31,7 +52,8 @@ export default function AdicionarProduto() {
             isChecked={checkProduto}
             checkBoxColor="#FBFAF7"/>
             <Text 
-              className='color-[#FBFAF7]'>
+              className='color-[#FBFAF7]' 
+              style={{fontFamily:'Itim'}}>
                 Produto Simples
             </Text>
         </View>
@@ -41,7 +63,8 @@ export default function AdicionarProduto() {
             isChecked={checkGrupo}
             checkBoxColor="#FBFAF7"/>
             <Text 
-              className='color-[#FBFAF7]'>
+              className='color-[#FBFAF7]'
+              style={{fontFamily:'Itim'}}>
                 Grupo de Produtos
             </Text>
         </View>
@@ -80,6 +103,23 @@ export default function AdicionarProduto() {
           <View className='h-16 w-full'/>
         </ScrollView>
       </View>
+     )}
+
+     {checkGrupo && (
+      components.map((components) => (
+        <View
+          key={components.id}
+        style={{
+          padding: 15,
+          marginVertical: 10,
+          borderWidth: 1,
+          borderRadius: 10,
+        }}>
+          <Text>
+            {components.name}
+          </Text>
+        </View>
+      ))
      )}
       {isModalVisible && (
         <ProductQuantityModal
